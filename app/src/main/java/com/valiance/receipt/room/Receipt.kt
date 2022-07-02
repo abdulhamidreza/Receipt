@@ -14,6 +14,7 @@ data class Receipt(
     @ColumnInfo(name = "quantityP2") val quantityP2: Int,
     @ColumnInfo(name = "priceP3") val priceP3: Double,
     @ColumnInfo(name = "quantityP3") val quantityP3: Int,
+    @ColumnInfo(name = "filePath") val filePath: String,
 ) {
 
 
@@ -24,7 +25,18 @@ data class Receipt(
         priceP2: Double,
         quantityP2: Int,
         priceP3: Double,
-        quantityP3: Int
-    ) : this(0, createdDate, priceP1, quantityP1, priceP2, quantityP2, priceP3, quantityP3)
+        quantityP3: Int,
+        filePath: String
+    ) : this(
+        0,
+        createdDate,
+        priceP1,
+        quantityP1,
+        priceP2,
+        quantityP2,
+        priceP3,
+        quantityP3,
+        filePath
+    )
 
 }
