@@ -35,7 +35,8 @@ class ReceiptViewModel(private val receiptRepository: ReceiptRepository) : ViewM
                                 3.1,
                                 2,
                                 2.1,
-                                1
+                                1,
+                                ""
                             )
                         )
 
