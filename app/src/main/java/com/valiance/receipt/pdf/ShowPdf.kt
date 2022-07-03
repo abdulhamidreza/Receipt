@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.pdf
 
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer

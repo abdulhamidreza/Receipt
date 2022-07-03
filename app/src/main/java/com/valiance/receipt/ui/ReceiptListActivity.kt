@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.ui
 
 import android.Manifest
 import android.content.Intent
@@ -24,9 +24,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
+import com.valiance.receipt.R
 import com.valiance.receipt.databinding.ActivityReceiptListBinding
+import com.valiance.receipt.pdf.GeneratePdf
 import com.valiance.receipt.room.Receipt
 import com.valiance.receipt.room.ReceiptViewModel
+import com.valiance.receipt.ui.MyApplication
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -108,7 +111,7 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
 
         saveBtn.setOnClickListener {
             if (checkPermission()) {
-                val s = PdfGenerator.generate(
+                val s = GeneratePdf.generate(
                     BitmapFactory.decodeResource(
                         this.resources,
                         R.drawable.banner

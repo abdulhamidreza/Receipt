@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.pdf
 
 import android.content.Context
 import android.content.Intent

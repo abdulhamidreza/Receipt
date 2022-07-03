@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.ui
 
 import android.app.Application
 import com.valiance.receipt.room.CustRoomDatabase

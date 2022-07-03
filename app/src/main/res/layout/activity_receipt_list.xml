@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="4dp"
-    tools:context=".ReceiptListActivity">
+    tools:context=".ui.ReceiptListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/receipt_list_recycler_view"

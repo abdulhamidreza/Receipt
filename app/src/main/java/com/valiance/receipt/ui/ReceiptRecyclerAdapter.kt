@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.valiance.receipt.R
 import com.valiance.receipt.room.Receipt
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

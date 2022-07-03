@@ -1,4 +1,4 @@
-package com.valiance.receipt;
+package com.valiance.receipt.ui;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
@@ -11,6 +11,10 @@ import android.os.Environment;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.valiance.receipt.R;
+import com.valiance.receipt.pdf.SharePdf;
+import com.valiance.receipt.pdf.ShowPdf;
 
 import java.io.File;
 import java.io.IOException;

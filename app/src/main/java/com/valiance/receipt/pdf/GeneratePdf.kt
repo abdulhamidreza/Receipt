@@ -1,4 +1,4 @@
-package com.valiance.receipt
+package com.valiance.receipt.pdf
 
 import android.graphics.*
 import android.graphics.pdf.PdfDocument
@@ -9,11 +9,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDateTime
 
-object PdfGenerator {
+object GeneratePdf {
 
     fun generate(bmp: Bitmap, receipt: Receipt): String {
 
-        val Tag = "PdfGenerator"
+        val Tag = "GeneratePdf"
         val pdfDocument = PdfDocument()
 
         val pageInfo: PdfDocument.PageInfo = PdfDocument.PageInfo.Builder(1200, 1500, 1).create()
