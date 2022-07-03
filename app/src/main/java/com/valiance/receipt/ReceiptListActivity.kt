@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -109,7 +108,7 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
 
         saveBtn.setOnClickListener {
             if (checkPermission()) {
-              val s =  PdfGenerator.generate(
+                val s = PdfGenerator.generate(
                     BitmapFactory.decodeResource(
                         this.resources,
                         R.drawable.banner
@@ -118,7 +117,7 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
                         3.1, 2, 2.1, 1, ""
                     )
                 )
-                Log.d("******** path : " ,s)
+                Log.d("******** path : ", s)
 
             } else {
                 Toast.makeText(this, "Storage permission not there", Toast.LENGTH_SHORT).show()
