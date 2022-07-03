@@ -214,9 +214,4 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
         alertEdit(receipt)
     }
 
-    override fun onReceiptDeleteClicked(receipt: Receipt) {
-        TODO("Not yet implemented")
-    }
-
-
 }

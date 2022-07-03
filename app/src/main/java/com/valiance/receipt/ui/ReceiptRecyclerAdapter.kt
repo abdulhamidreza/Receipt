@@ -85,7 +85,6 @@ class ReceiptRecyclerAdapter(
 
     interface IGetReceiptData {
         fun onReceiptEditClicked(receipt: Receipt)
-        fun onReceiptDeleteClicked(receipt: Receipt)
     }
 
 }
