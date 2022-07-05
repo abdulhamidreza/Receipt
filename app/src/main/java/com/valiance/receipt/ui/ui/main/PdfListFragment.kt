@@ -159,7 +159,7 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
         val filePath = GeneratePdf.generate(
             BitmapFactory.decodeResource(
                 this.resources,
-                R.drawable.banner
+                R.drawable.pizzahead
             ), receipt
         )
 
