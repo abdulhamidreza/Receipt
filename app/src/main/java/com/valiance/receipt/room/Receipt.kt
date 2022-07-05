@@ -3,6 +3,7 @@ package com.valiance.receipt.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "Receipts")
 data class Receipt(
@@ -15,7 +16,7 @@ data class Receipt(
     @ColumnInfo(name = "priceP3") var priceP3: Double,
     @ColumnInfo(name = "quantityP3") var quantityP3: Int,
     @ColumnInfo(name = "filePath") var filePath: String,
-) {
+) : Serializable {
 
     constructor(
         createdDate: String,

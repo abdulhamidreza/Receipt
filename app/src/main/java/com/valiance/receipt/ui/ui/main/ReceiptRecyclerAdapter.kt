@@ -1,10 +1,10 @@
-package com.valiance.receipt.ui
+package com.valiance.receipt.ui.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.valiance.receipt.R
 import com.valiance.receipt.room.Receipt
@@ -14,13 +14,12 @@ import java.time.format.DateTimeFormatter
 
 class ReceiptRecyclerAdapter(
     private var receiptList: List<Receipt>,
-    var iGetReceiptData: IGetReceiptData
+    private var iGetReceiptData: IGetReceiptData
 ) :
     RecyclerView.Adapter<ReceiptRecyclerAdapter.ViewHolder>() {
-
-    val formatterDate: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm a")
-
+    private val formatterDate: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm a")
     private lateinit var layoutInflater: LayoutInflater
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.receipt_item, viewGroup, false)
@@ -44,10 +43,6 @@ class ReceiptRecyclerAdapter(
             String.format("%.2f", receipt.priceP1 + receipt.priceP3 + receipt.priceP3)
         viewHolder.generatedDateTxt.text = formatterDate.format(
             LocalDateTime.parse(receipt.createdDate, formatterDate))
-
-        if (receipt.filePath.isNotBlank()) {
-            viewHolder.editPrintBtn.setImageResource(R.drawable.ic_baseline_share_24)
-        }
 
         viewHolder.editPrintBtn.setOnClickListener {
             iGetReceiptData.onReceiptEditClicked(receipt)
@@ -76,7 +71,7 @@ class ReceiptRecyclerAdapter(
         var s3ValueTextView: TextView
         var generatedDateTxt: TextView
         var totalValueTextView: TextView
-        var editPrintBtn: ImageButton
+        var editPrintBtn: ConstraintLayout
 
         init {
             p1ValueTextView = view.findViewById<View>(R.id.p1ValueTextView) as TextView
@@ -90,7 +85,7 @@ class ReceiptRecyclerAdapter(
             s3ValueTextView = view.findViewById<View>(R.id.sum3ValueTextView) as TextView
             generatedDateTxt = view.findViewById<View>(R.id.dateTextView) as TextView
             totalValueTextView = view.findViewById<View>(R.id.totalValueTextView) as TextView
-            editPrintBtn = view.findViewById<View>(R.id.editPrintBtn) as ImageButton
+            editPrintBtn = view.findViewById<View>(R.id.editPrintBtn) as ConstraintLayout
 
         }
     }

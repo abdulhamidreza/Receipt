@@ -7,7 +7,6 @@
     tools:context=".ui.ui.main.PdfListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/receipt_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,10 +14,9 @@
         tools:listitem="@layout/receipt_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_receipt_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="6dp"
         android:backgroundTint="@android:color/darker_gray"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

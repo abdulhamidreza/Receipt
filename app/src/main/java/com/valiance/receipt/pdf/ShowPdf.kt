@@ -8,14 +8,13 @@ import java.io.File
 import java.io.IOException
 
 class ShowPdf {
-
     private lateinit var pdfRenderer: PdfRenderer
     private lateinit var currentPage: PdfRenderer.Page
     private lateinit var parcelFileDescriptor: ParcelFileDescriptor
     private val pageIndex = 0
 
     @Throws(IOException::class)
-    fun showPage(file: File): Bitmap? {
+     fun showPage(file: File): Bitmap? {
         parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
         // This is the PdfRenderer we use to render the PDF.
         pdfRenderer =

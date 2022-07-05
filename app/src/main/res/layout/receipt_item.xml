@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/editPrintBtn"
         android:padding="6dp">
 
         <TextView
@@ -260,15 +261,6 @@
             app:layout_constraintTop_toTopOf="@+id/textView"
             app:layout_constraintVertical_bias="1.0"
             tools:text="23 Feb 2022" />
-
-        <ImageButton
-            android:id="@+id/editPrintBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@color/white"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
-            app:layout_constraintTop_toTopOf="@+id/dateTextView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

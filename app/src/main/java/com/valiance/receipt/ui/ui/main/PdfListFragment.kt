@@ -1,7 +1,7 @@
 package com.valiance.receipt.ui.ui.main
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.valiance.receipt.R
 import com.valiance.receipt.databinding.FragmentPdfListBinding
 import com.valiance.receipt.databinding.ReceiptAddViewBinding
-import com.valiance.receipt.pdf.GeneratePdf
 import com.valiance.receipt.room.Receipt
 import com.valiance.receipt.ui.MyApplication
-import com.valiance.receipt.ui.ReceiptRecyclerAdapter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -27,7 +25,6 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
     companion object {
         fun newInstance() = PdfListFragment()
     }
-
 
     private var _binding: FragmentPdfListBinding? = null
 
@@ -76,6 +73,7 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
 
         receiptViewModel.allReceiptRealTime.observe(viewLifecycleOwner) {
             receiptList = it
+            Log.d("**************", "updated")
             recyclerAdapter!!.updateUserList(receiptList)
 
         }
@@ -95,18 +93,7 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
     }
 
     override fun onReceiptEditClicked(receipt: Receipt) {
-        if (receipt.filePath.isBlank()) {
-            generatePdf(receipt)
-        } else {
-            val fragment = ShowPdfFragment.newInstance()
-            val args = Bundle()
-            args.putString("filePath", receipt.filePath)
-            fragment.arguments = args
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
+        gotShowPdfPage(receipt)
     }
 
     private fun addNewReceipt() {
@@ -121,6 +108,7 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
 
         builder.setOnCancelListener {
             Toast.makeText(context, "Changes not saved", Toast.LENGTH_SHORT).show()
+            return@setOnCancelListener
         }
 
         _bindingAlert.saveBtn.setOnClickListener {
@@ -145,37 +133,24 @@ class PdfListFragment : Fragment(), ReceiptRecyclerAdapter.IGetReceiptData {
                 ""
             )
 
-            generatePdf(receipt)
+            receiptViewModel.insertReceipt(receipt)
 
             builder.dismiss()
+            gotShowPdfPage(receipt)
 
         }
 
     }
 
-    private fun generatePdf(receipt: Receipt) {
-        receiptViewModel.insertReceipt(receipt)
-
-        val filePath = GeneratePdf.generate(
-            BitmapFactory.decodeResource(
-                this.resources,
-                R.drawable.pizzahead
-            ), receipt
-        )
-
-
-        receipt.filePath = filePath
-        receiptViewModel.updateReceipt(receipt)
-
+    private fun gotShowPdfPage(receipt: Receipt) {
         val fragment = ShowPdfFragment.newInstance()
         val args = Bundle()
-        args.putString("filePath", filePath)
+        args.putSerializable("RECEIPT_EXTRA", receipt)
         fragment.arguments = args
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit()
-
     }
 
 }

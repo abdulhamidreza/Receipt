@@ -1,16 +1,20 @@
 package com.valiance.receipt.ui.ui.main
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.valiance.receipt.R
 import com.valiance.receipt.databinding.FragmentShowPdfBinding
+import com.valiance.receipt.pdf.GeneratePdf
 import com.valiance.receipt.pdf.SharePdf
 import com.valiance.receipt.pdf.ShowPdf
+import com.valiance.receipt.room.Receipt
 import com.valiance.receipt.ui.MyApplication
-import java.io.IOException
 
 class ShowPdfFragment : Fragment() {
 
@@ -20,9 +24,6 @@ class ShowPdfFragment : Fragment() {
 
     private var _binding: FragmentShowPdfBinding? = null
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val receiptViewModel: ReceiptViewModel by viewModels {
         ReceiptViewModel.ReceiptViewModelFactory((requireActivity().application as MyApplication).repository)
@@ -47,29 +48,44 @@ class ShowPdfFragment : Fragment() {
         val bundle: Bundle? = this.arguments
         if (bundle != null) {
             try {
-                var filePath = ShowPdf().findFilePath(
-                    bundle.getString("filePath", "")
-                )
-                if (filePath != null) {
-                    _binding!!.pdfImage.setImageBitmap(
-                        ShowPdf().showPage(
-                            filePath
-                        )
-                    )
+                var receipt = bundle.getSerializable("RECEIPT_EXTRA") as Receipt
 
-                    _binding!!.shareDdf.setOnClickListener {
-                        SharePdf().sharePdf(
-                            requireActivity(),
-                            filePath
-                        )
-                    }
+                if (receipt.filePath.isEmpty() || receipt.filePath.isBlank()) {
+                    generatePdf(receipt)
+                    displayPdf(receipt)
+                } else {
+                    displayPdf(receipt)
                 }
-
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
+                Toast.makeText(context, "Error: " + e.message, Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
+    }
 
+    private fun displayPdf(receipt: Receipt) {
+
+        var filePath = ShowPdf().findFilePath(receipt.filePath)
+        if (filePath != null) {
+            _binding!!.pdfImage.setImageBitmap(ShowPdf().showPage(filePath))
+            _binding!!.shareDdf.setOnClickListener {
+                SharePdf().sharePdf(requireActivity(), filePath)
+            }
+        } else {
+            generatePdf(receipt)
+        }
+    }
+
+    private fun generatePdf(receipt: Receipt) {
+        val bitmapFactory = BitmapFactory.decodeResource(
+            this.resources, R.drawable.pizzahead
+        )
+        var filePath = GeneratePdf.generate(
+            bitmapFactory, receipt
+        )
+        receipt.filePath = filePath
+        receiptViewModel.updateReceipt(receipt)
 
     }
 
@@ -77,6 +93,5 @@ class ShowPdfFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }
