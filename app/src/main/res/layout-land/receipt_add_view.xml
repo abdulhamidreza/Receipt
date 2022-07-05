@@ -22,14 +22,14 @@
                 android:id="@+id/saveBtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/teal_200"
                 android:text="Add"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintHorizontal_bias="0.539"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPrice3" />
 
@@ -44,7 +44,8 @@
                 android:paddingStart="12dp"
                 android:textSize="18sp"
                 app:layout_constraintCircleRadius="10dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textViewP1"
+                app:layout_constraintStart_toStartOf="@+id/textViewP1"
                 app:layout_constraintTop_toBottomOf="@+id/textViewP1"
                 tools:text="Quantity" />
 
@@ -53,15 +54,15 @@
                 android:id="@+id/editTextPrice1"
                 android:layout_width="159dp"
                 android:layout_height="52dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="#11000000"
                 android:inputType="number"
                 android:paddingStart="12dp"
                 android:textSize="18sp"
                 app:layout_constraintCircleRadius="10dp"
-                app:layout_constraintStart_toEndOf="@+id/editTextQuantity1"
-                app:layout_constraintTop_toTopOf="@+id/editTextQuantity1"
+                app:layout_constraintStart_toStartOf="@+id/editTextQuantity1"
+                app:layout_constraintTop_toBottomOf="@+id/editTextQuantity1"
                 tools:text="Price" />
 
             <TextView
@@ -73,6 +74,8 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/saveBtn"
+                app:layout_constraintHorizontal_bias="0.453"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,14 +83,16 @@
                 android:id="@+id/textViewP2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="40dp"
                 android:padding="5dp"
                 android:text="Product 2"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textViewP1"
-                app:layout_constraintTop_toBottomOf="@+id/editTextQuantity1" />
+                app:layout_constraintEnd_toEndOf="@+id/saveBtn"
+                app:layout_constraintHorizontal_bias="0.174"
+                app:layout_constraintStart_toStartOf="@+id/saveBtn"
+                app:layout_constraintTop_toTopOf="@+id/textViewP1" />
 
             <EditText
                 android:id="@+id/editTextQuantity2"
@@ -99,37 +104,40 @@
                 android:paddingStart="12dp"
                 android:textSize="18sp"
                 app:layout_constraintCircleRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewP2"
                 app:layout_constraintStart_toStartOf="@+id/textViewP2"
-                app:layout_constraintTop_toBottomOf="@+id/textViewP2"
+                app:layout_constraintTop_toTopOf="@+id/editTextQuantity1"
                 tools:text="Quantity" />
 
             <EditText
                 android:id="@+id/editTextPrice2"
                 android:layout_width="159dp"
                 android:layout_height="52dp"
-                android:layout_marginStart="20dp"
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="#11000000"
                 android:inputType="number"
                 android:paddingStart="12dp"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextPrice1"
                 app:layout_constraintCircleRadius="10dp"
-                app:layout_constraintStart_toEndOf="@+id/editTextQuantity2"
-                app:layout_constraintTop_toTopOf="@+id/editTextQuantity2"
+                app:layout_constraintEnd_toEndOf="@+id/textViewP2"
+                app:layout_constraintHorizontal_bias="0.508"
+                app:layout_constraintStart_toStartOf="@+id/textViewP2"
                 tools:text="Price" />
 
             <TextView
                 android:id="@+id/textViewP3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:padding="5dp"
                 android:text="Product 3"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textViewP2"
-                app:layout_constraintTop_toBottomOf="@+id/editTextQuantity2" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.535"
+                app:layout_constraintStart_toEndOf="@+id/saveBtn"
+                app:layout_constraintTop_toTopOf="@+id/textViewP2" />
 
             <EditText
                 android:id="@+id/editTextQuantity3"
@@ -141,23 +149,24 @@
                 android:paddingStart="12dp"
                 android:textSize="18sp"
                 app:layout_constraintCircleRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewP3"
                 app:layout_constraintStart_toStartOf="@+id/textViewP3"
-                app:layout_constraintTop_toBottomOf="@+id/textViewP3"
+                app:layout_constraintTop_toTopOf="@+id/editTextQuantity2"
                 tools:text="Quantity" />
 
             <EditText
                 android:id="@+id/editTextPrice3"
                 android:layout_width="159dp"
                 android:layout_height="52dp"
-                android:layout_marginStart="20dp"
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="#11000000"
                 android:inputType="number"
                 android:paddingStart="12dp"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextPrice2"
                 app:layout_constraintCircleRadius="10dp"
-                app:layout_constraintStart_toEndOf="@+id/editTextQuantity3"
-                app:layout_constraintTop_toTopOf="@+id/editTextQuantity3"
+                app:layout_constraintEnd_toEndOf="@+id/textViewP3"
+                app:layout_constraintStart_toStartOf="@+id/textViewP3"
                 tools:text="Price" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
