@@ -18,51 +18,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="Date : "
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/itemTextView"
-            app:layout_constraintTop_toBottomOf="@+id/TotalTextView"
-            android:text="Date : " />
+            app:layout_constraintTop_toBottomOf="@+id/TotalTextView" />
 
         <TextView
             android:id="@+id/itemTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:text="Items"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Items" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/quantityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Quantity"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/priceTextView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/itemTextView"
-            app:layout_constraintTop_toTopOf="@+id/itemTextView"
-            android:text="Quantity" />
+            app:layout_constraintTop_toTopOf="@+id/itemTextView" />
 
         <TextView
             android:id="@+id/TotalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="Total : "
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/quantityTextView"
-            app:layout_constraintTop_toBottomOf="@+id/view2"
-            android:text="Total : " />
+            app:layout_constraintEnd_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
         <View
             android:id="@+id/view2"
@@ -70,7 +69,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/priceTextView"
+            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
             app:layout_constraintStart_toStartOf="@+id/p3TextView"
             app:layout_constraintTop_toBottomOf="@+id/p3ValueTextView" />
 
@@ -78,14 +77,27 @@
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/sumTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/quantityTextView"
+            app:layout_constraintTop_toTopOf="@+id/quantityTextView" />
+
+        <TextView
+            android:id="@+id/sumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/quantityTextView"
-            app:layout_constraintTop_toTopOf="@+id/itemTextView"
-            android:text="Price" />
+            app:layout_constraintStart_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView" />
 
 
         <TextView
@@ -94,11 +106,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="4"
+            android:text="Product 1"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/itemTextView"
-            app:layout_constraintTop_toBottomOf="@+id/itemTextView"
-            android:text="Product 1" />
+            app:layout_constraintTop_toBottomOf="@+id/itemTextView" />
 
         <TextView
             android:id="@+id/q1ValueTextView"
@@ -124,6 +136,18 @@
             tools:text="2.00" />
 
         <TextView
+            android:id="@+id/sum1ValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
+            app:layout_constraintTop_toTopOf="@+id/p1TextView"
+            tools:text="2.00" />
+
+
+        <TextView
             android:id="@+id/q2ValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,6 +166,17 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toTopOf="@+id/p2TextView"
+            tools:text="12.00" />
+
+        <TextView
+            android:id="@+id/sum2ValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
             app:layout_constraintTop_toTopOf="@+id/p2TextView"
             tools:text="12.00" />
 
@@ -168,16 +203,27 @@
             tools:text="102.00" />
 
         <TextView
+            android:id="@+id/sum3ValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
+            app:layout_constraintTop_toTopOf="@+id/p3TextView"
+            tools:text="102.00" />
+
+
+        <TextView
             android:id="@+id/totalValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="4"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/priceTextView"
+            app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintTop_toTopOf="@+id/TotalTextView"
             tools:text="102.00" />
-
 
         <TextView
             android:id="@+id/p2TextView"
@@ -185,11 +231,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="4"
+            android:text="Product 2"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/p1TextView"
-            app:layout_constraintTop_toBottomOf="@+id/p1TextView"
-            android:text="Product 2" />
+            app:layout_constraintTop_toBottomOf="@+id/p1TextView" />
 
         <TextView
             android:id="@+id/p3TextView"
@@ -197,11 +243,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="4"
+            android:text="Product 3"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/p2TextView"
-            app:layout_constraintTop_toBottomOf="@+id/p2TextView"
-            android:text="Product 3" />
+            app:layout_constraintTop_toBottomOf="@+id/p2TextView" />
 
 
         <TextView
@@ -217,11 +263,11 @@
 
         <ImageButton
             android:id="@+id/editPrintBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@color/white"
             android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintEnd_toEndOf="@+id/priceTextView"
+            app:layout_constraintEnd_toEndOf="@+id/sumTextView"
             app:layout_constraintTop_toTopOf="@+id/dateTextView" />
 
 

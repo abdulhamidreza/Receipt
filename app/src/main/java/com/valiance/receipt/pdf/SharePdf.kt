@@ -11,11 +11,8 @@ import java.io.File
 
 class SharePdf {
 
-    public fun provideContentUri(context: Context) {
-        val file = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "Invoice34.pdf"
-        )
+    fun sharePdf(context: Context, file: File) {
+
         val contentUri = getUriForFile(
             context,
             "com.valiance.receipt.provider", file
@@ -26,7 +23,7 @@ class SharePdf {
 
 
         val chooser = Intent.createChooser(sharingIntent, "Share File 123")
-        val resInfoList: List<ResolveInfo> = context.getPackageManager()
+        val resInfoList: List<ResolveInfo> = context.packageManager
             .queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY)
         for (resolveInfo in resInfoList) {
             val packageName = resolveInfo.activityInfo.packageName

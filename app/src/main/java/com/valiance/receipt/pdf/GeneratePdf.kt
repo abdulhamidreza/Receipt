@@ -1,6 +1,9 @@
 package com.valiance.receipt.pdf
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import android.util.Log
@@ -34,7 +37,7 @@ object GeneratePdf {
 
         val file = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "Invoice" + LocalDateTime.now().second + ".pdf"
+            "Invoice_" + LocalDateTime.now().minute + "_" + LocalDateTime.now().second + ".pdf"
         )
         try {
             pdfDocument.writeTo(FileOutputStream(file))
@@ -45,7 +48,7 @@ object GeneratePdf {
             return ""
         }
 
-        return file.absolutePath
+        return file.name
 
     }
 

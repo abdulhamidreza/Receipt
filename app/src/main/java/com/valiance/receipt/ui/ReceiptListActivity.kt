@@ -3,53 +3,25 @@ package com.valiance.receipt.ui
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
 import com.valiance.receipt.R
 import com.valiance.receipt.databinding.ActivityReceiptListBinding
-import com.valiance.receipt.pdf.GeneratePdf
-import com.valiance.receipt.room.Receipt
-import com.valiance.receipt.room.ReceiptViewModel
-import com.valiance.receipt.ui.MyApplication
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import com.valiance.receipt.ui.ui.main.PdfListFragment
 
 
-class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetReceiptData {
+class ReceiptListActivity : AppCompatActivity() {
 
     private val STORAGE_REQUEST_CODE = 99;
-    private lateinit var builder: AlertDialog
     private lateinit var binding: ActivityReceiptListBinding
-    private lateinit var mAddFab: FloatingActionButton
-    private val formatterDate: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm a")
-
-    private var receiptList: List<Receipt> = ArrayList()
-    private lateinit var recyclerView: RecyclerView
-    private var linearLayoutManager: LinearLayoutManager? = null
-    private var recyclerAdapter: ReceiptRecyclerAdapter? = null
-    private val receiptViewModel: ReceiptViewModel by viewModels {
-        ReceiptViewModel.ReceiptViewModelFactory((application as MyApplication).repository)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,86 +30,21 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
 
         setContentView(binding.root)
 
-        mAddFab = binding.addReceiptFab
-        mAddFab.setOnClickListener(View.OnClickListener {
-            alertEdit(null)
-        })
-
-
-        //Middle Recycler View //todo
-        recyclerView = binding.receiptListRecyclerView
-        recyclerView.setHasFixedSize(true)
-        linearLayoutManager =
-            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerAdapter = ReceiptRecyclerAdapter(receiptList, this)
-        recyclerView.adapter = recyclerAdapter
-
-        receiptViewModel.allReceiptRealTime.observe(this) {
-            Log.d("**********", Gson().toJson(it))
-            receiptList = it
-            recyclerAdapter!!.updateUserList(receiptList)
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, PdfListFragment.newInstance())
+                .commitNow()
         }
 
-        receiptViewModel.loadingStatus.observe(this) {
-            if (it) builder.dismiss()
+
+        if (!checkPermission()) {
+            Toast.makeText(this, "Storage permission not there", Toast.LENGTH_SHORT).show()
+            requestPermission()
         }
-        receiptViewModel.errorMessage.observe(this) {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        }
+
 
     }
 
-
-    private fun alertEdit(receipt: Receipt?) {
-        builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
-            .create()
-        val view = layoutInflater.inflate(R.layout.receipt_add_view, null)
-        builder.setView(view)
-        builder.setCanceledOnTouchOutside(true)
-        builder.show()
-
-        val title = view.findViewById<EditText>(R.id.editTextQuantity1)
-        val saveBtn = view.findViewById<Button>(R.id.saveBtn)
-
-        receipt?.let {
-            title.setText(receipt.priceP1.toString())
-        }
-
-        builder.setOnCancelListener {
-            Toast.makeText(this, "Changes not saved", Toast.LENGTH_SHORT).show()
-        }
-
-        saveBtn.setOnClickListener {
-            if (checkPermission()) {
-                val s = GeneratePdf.generate(
-                    BitmapFactory.decodeResource(
-                        this.resources,
-                        R.drawable.banner
-                    ), Receipt(
-                        formatterDate.format(LocalDateTime.now()), 1.1, 1,
-                        3.1, 2, 2.1, 1, ""
-                    )
-                )
-                Log.d("******** path : ", s)
-
-            } else {
-                Toast.makeText(this, "Storage permission not there", Toast.LENGTH_SHORT).show()
-                requestPermission()
-            }
-            if (receipt == null) {
-                receiptViewModel.insertReceipt(
-                    Receipt(
-                        formatterDate.format(LocalDateTime.now()), 1.1, 1,
-                        3.1, 2, 2.1, 1, ""
-                    )
-                )
-            }
-
-
-        }
-    }
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
@@ -167,7 +74,7 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
                     //Todo call Save
-                    Toast.makeText(this, "Save here", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show()
 
                 } else {
                     Toast.makeText(this, "Storage Permission Denied", Toast.LENGTH_SHORT).show()
@@ -210,8 +117,5 @@ class ReceiptListActivity : AppCompatActivity(), ReceiptRecyclerAdapter.IGetRece
         }
     }
 
-    override fun onReceiptEditClicked(receipt: Receipt) {
-        alertEdit(receipt)
-    }
 
 }

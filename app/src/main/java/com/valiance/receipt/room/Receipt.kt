@@ -6,17 +6,16 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Receipts")
 data class Receipt(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "receiptId") val receiptId: Long,
-    @ColumnInfo(name = "createdDate") val createdDate: String,
-    @ColumnInfo(name = "priceP1") val priceP1: Double,
-    @ColumnInfo(name = "quantityP1") val quantityP1: Int,
-    @ColumnInfo(name = "priceP2") val priceP2: Double,
-    @ColumnInfo(name = "quantityP2") val quantityP2: Int,
-    @ColumnInfo(name = "priceP3") val priceP3: Double,
-    @ColumnInfo(name = "quantityP3") val quantityP3: Int,
-    @ColumnInfo(name = "filePath") val filePath: String,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "receiptId") var receiptId: Long,
+    @ColumnInfo(name = "createdDate") var createdDate: String,
+    @ColumnInfo(name = "priceP1") var priceP1: Double,
+    @ColumnInfo(name = "quantityP1") var quantityP1: Int,
+    @ColumnInfo(name = "priceP2") var priceP2: Double,
+    @ColumnInfo(name = "quantityP2") var quantityP2: Int,
+    @ColumnInfo(name = "priceP3") var priceP3: Double,
+    @ColumnInfo(name = "quantityP3") var quantityP3: Int,
+    @ColumnInfo(name = "filePath") var filePath: String,
 ) {
-
 
     constructor(
         createdDate: String,

@@ -15,20 +15,19 @@ class ShowPdf {
     private val pageIndex = 0
 
     @Throws(IOException::class)
-    fun showPage(file: String): Bitmap? {
-        openRenderer(file)
+    fun showPage(file: File): Bitmap? {
+        parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+        // This is the PdfRenderer we use to render the PDF.
+        pdfRenderer =
+            PdfRenderer(parcelFileDescriptor)
         if (pdfRenderer.getPageCount() <= pageIndex) {
             return null
         }
-        // Use `openPage` to open a specific page in PDF.
         currentPage = pdfRenderer.openPage(pageIndex)
-        // Important: the destination bitmap must be ARGB (not RGB).
         val bitmap = Bitmap.createBitmap(
             currentPage.getWidth(), currentPage.getHeight(),
             Bitmap.Config.ARGB_8888
         )
-        // Here, we render the page onto the Bitmap.
-        // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
         currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
 
         closeRenderer()
@@ -45,19 +44,15 @@ class ShowPdf {
     }
 
 
-    @Throws(IOException::class)
-    private fun openRenderer(file: String) {
+    public fun findFilePath(file: String): File? {
         val file = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             file
         )
         if (!file.exists()) {
-            throw  ArithmeticException("File not exist");
+            return null
         }
-        parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-        // This is the PdfRenderer we use to render the PDF.
-        pdfRenderer = PdfRenderer(parcelFileDescriptor)
-
+        return file
     }
 
 }

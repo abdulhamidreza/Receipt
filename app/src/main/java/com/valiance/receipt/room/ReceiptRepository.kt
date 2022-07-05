@@ -7,16 +7,6 @@ class ReceiptRepository(private val receiptDao: ReceiptDao) {
 
     val allReceipts: Flow<MutableList<Receipt>> = receiptDao.getAllReceipts()
 
-    fun getReceipt(receiptId: String): Receipt {
-        return receiptDao.getReceipt(receiptId)
-    }
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun getAllReceiptOnce(): List<Receipt> {
-        return receiptDao.getAllReceiptOnce()
-    }
-
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertReceipt(receipt: Receipt) {
@@ -29,11 +19,5 @@ class ReceiptRepository(private val receiptDao: ReceiptDao) {
         receiptDao.updateReceipt(receipt)
     }
 
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun deleteReceipt(receipt: Receipt) {
-        receiptDao.deleteReceipt(receipt)
-    }
 
 }

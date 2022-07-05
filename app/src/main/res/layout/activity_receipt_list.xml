@@ -8,25 +8,11 @@
     android:padding="4dp"
     tools:context=".ui.ReceiptListActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/receipt_list_recycler_view"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/receipt_item" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_receipt_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="@android:color/darker_gray"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        android:layout_height="match_parent"
+        tools:context=".ui.MainActivity" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,11 @@
-package com.valiance.receipt.room
+package com.valiance.receipt.ui.ui.main
 
 import androidx.lifecycle.*
+import com.valiance.receipt.room.Receipt
+import com.valiance.receipt.room.ReceiptRepository
 import kotlinx.coroutines.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ReceiptViewModel(private val receiptRepository: ReceiptRepository) : ViewModel() {
-    val formatterDate: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm a")
-
 
     val errorMessage = MutableLiveData<String>()
     val loadingStatus = MutableLiveData<Boolean>()
@@ -20,35 +18,20 @@ class ReceiptViewModel(private val receiptRepository: ReceiptRepository) : ViewM
 
 
     fun updateReceipt(
-        title: String, description: String
+        receipt: Receipt
     ) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             withContext(Dispatchers.Main) {
-                if (title.isNotEmpty() && description.isNotEmpty()) {
+                if (receipt.filePath.isNotEmpty()) {
                     loadingStatus.postValue(true)
                     viewModelScope.launch(Dispatchers.IO) {
                         receiptRepository.updateReceipt(
-                            Receipt(
-                                formatterDate.format(LocalDateTime.now()),
-                                1.1,
-                                1,
-                                3.1,
-                                2,
-                                2.1,
-                                1,
-                                ""
-                            )
+                            receipt
                         )
-
                         onError("Receipt saved")
                     }
                 } else {
-                    if (title.isEmpty()) {
-                        onError("Title can not blank")
-                    } else
-                        if (description.isEmpty()) {
-                            onError("Description can not blank")
-                        }
+                    onError("File Path not saved")
                 }
             }
         }
@@ -65,7 +48,8 @@ class ReceiptViewModel(private val receiptRepository: ReceiptRepository) : ViewM
     }
 
 
-    val allReceiptRealTime: LiveData<MutableList<Receipt>> = receiptRepository.allReceipts.asLiveData()
+    val allReceiptRealTime: LiveData<MutableList<Receipt>> =
+        receiptRepository.allReceipts.asLiveData()
 
     // Launching a new coroutine to insert the data in a non-blocking way
     fun insertReceipt(user: Receipt) = viewModelScope.launch {
